@@ -1,0 +1,28 @@
+import tkinter as tk
+import serial
+
+ser = serial.Serial('COM3', 9600)  
+
+def turn_on():
+    ser.write(b'1') 
+
+def turn_off():
+    ser.write(b'0')  
+
+def on_close():
+    if ser.is_open:
+        ser.close()
+    root.destroy()
+
+root = tk.Tk()
+root.title("Control Serial")
+
+btn_on = tk.Button(root, text="Encender", command=turn_on)
+btn_on.pack(pady=20)
+
+btn_off = tk.Button(root, text="Apagar", command=turn_off)
+btn_off.pack(pady=20)
+
+root.protocol("WM_DELETE_WINDOW", on_close)
+
+root.mainloop()
